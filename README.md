@@ -122,6 +122,12 @@ The visualization results are shown below:
 ![colored_cloud_1](./docs/imgs/colored_pcd_01.png)
 ![colored_cloud_2](./docs/imgs/colored_pcd_02.png)
 
+## Contact
+
+Email: 1156478780@qq.com
+Blog: https://zeal-up.github.io/
+Github: https://github.com/zeal-up/FAST-Calib_wo_ros
+
 ## Acknowledgements
 
 This repository is based on the official [FAST-Calib](https://github.com/hku-mars/FAST-Calib) repository.
