@@ -97,14 +97,14 @@ CameraIntrinsics readCameraIntrinsics(const std::string& filepath) {
         params.cam_model = config["cam_model"].as<std::string>();
         params.cam_width = config["cam_width"].as<int>();
         params.cam_height = config["cam_height"].as<int>();
-        params.cam_fx = config["cam_fx"].as<double>();
-        params.cam_fy = config["cam_fy"].as<double>();
-        params.cam_cx = config["cam_cx"].as<double>();
-        params.cam_cy = config["cam_cy"].as<double>();
-        params.cam_d0 = config["cam_d0"].as<double>();
-        params.cam_d1 = config["cam_d1"].as<double>();
-        params.cam_d2 = config["cam_d2"].as<double>();
-        params.cam_d3 = config["cam_d3"].as<double>();
+        params.fx = config["cam_fx"].as<double>();
+        params.fy = config["cam_fy"].as<double>();
+        params.cx = config["cam_cx"].as<double>();
+        params.cy = config["cam_cy"].as<double>();
+        params.k1 = config["cam_d0"].as<double>();
+        params.k2 = config["cam_d1"].as<double>();
+        params.p1 = config["cam_d2"].as<double>();
+        params.p2 = config["cam_d3"].as<double>();
         
     } catch (const YAML::Exception& e) {
         // 异常处理:cite[4]

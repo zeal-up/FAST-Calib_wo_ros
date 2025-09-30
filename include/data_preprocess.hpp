@@ -4,6 +4,7 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
 #include <opencv2/opencv.hpp>
 
 #include "struct.hpp"
@@ -50,6 +51,31 @@ public:
                       << img_input.cols << "x" << img_input.rows 
                       << " and point cloud with " << cloud_input->size() << " points." << std::endl;
         }
+    }
+
+    /**
+     * @brief Get the Point Cloud object. if index is out of range, return nullptr
+     * if voxel_downsample_size>0, downsample the point cloud
+     * 
+     * @param index 
+     * @param voxel_downsample_size 
+     * @return PointCloudPtr 
+     */
+    PointCloudPtr getPointCloud(int index, double voxel_downsample_size) {
+        if (index >= 0 && index < cloud_inputs.size()) {
+            PointCloudPtr cloud = cloud_inputs[index];
+            if (voxel_downsample_size > 0) {
+                pcl::VoxelGrid<PointT> voxel_grid;
+                voxel_grid.setLeafSize(voxel_downsample_size, voxel_downsample_size, voxel_downsample_size);
+                voxel_grid.setInputCloud(cloud);
+                PointCloudPtr downsample_cloud = MAKE_POINTCLOUD();
+                voxel_grid.filter(*downsample_cloud);
+                return downsample_cloud;
+            } else {
+                return cloud;
+            }
+        }
+        return nullptr;
     }
 };
 

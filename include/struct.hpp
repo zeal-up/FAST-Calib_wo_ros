@@ -4,20 +4,33 @@
 #include <yaml-cpp/yaml.h>
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
+#include <opencv2/opencv.hpp>
+
+
+#define DEBUG 1
+#define GEOMETRY_TOLERANCE 0.06
 
 // 相机参数结构体
 struct CameraIntrinsics {
     std::string cam_model;
     int cam_width;
     int cam_height;
-    double cam_fx;
-    double cam_fy;
-    double cam_cx;
-    double cam_cy;
-    double cam_d0;
-    double cam_d1;
-    double cam_d2;
-    double cam_d3;
+    double fx;
+    double fy;
+    double cx;
+    double cy;
+    double k1;
+    double k2;
+    double p1;
+    double p2;
+
+    cv::Mat getCameraMatrix() {
+        return (cv::Mat_<double>(3, 3) << fx, 0, cx, 0, fy, cy, 0, 0, 1);
+    }
+
+    cv::Mat getDistCoeffs() {
+        return (cv::Mat_<double>(1, 5) << k1, k2, p1, p2, 0);
+    }
 };
 
 struct InputDataInfo {
@@ -31,7 +44,9 @@ struct InputDataInfo {
 struct Parameters {
     CameraIntrinsics camera_intrinsics;
     double marker_size = 0.2;
+    // Aruco中心距离标靶中心的width距离
     double delta_width_qr_center = 0.55;
+    // Aruco中心距离标靶中心的height距离
     double delta_height_qr_center = 0.35;
     double delta_width_circles = 0.5;
     double delta_height_circles = 0.4;

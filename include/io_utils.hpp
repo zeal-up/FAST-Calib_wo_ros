@@ -17,3 +17,12 @@ CameraIntrinsics readCameraIntrinsics(const std::string& filepath);
 
 // 每一行的前四个浮点数是 x, y, z, intensity
 PointCloudPtr loadPointCloudFromTXT(const std::string& filepath);
+
+/**
+ * @brief 
+ * 
+ * @param transformation 
+ * @param dirPath 
+ * @return std::string save file path
+ */
+std::string saveCalibrationResults(const Eigen::Matrix4f& transformation, const std::string& dirPath);

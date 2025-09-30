@@ -14,9 +14,16 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set(CMAKE_BUILD_TYPE Release)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
-add_executable(my_fast_calib src/main.cpp src/print_utils.cpp src/io_utils.cpp)
+add_compile_options(-Wno-sign-compare)
+
+add_executable(my_fast_calib
+    src/main.cpp
+    src/print_utils.cpp
+    src/io_utils.cpp
+    src/qr_detect_utils.cpp
+    src/utils.cpp)
 target_link_libraries(my_fast_calib gflags yaml-cpp glog ${PCL_LIBRARIES} ${OpenCV_LIBS})
